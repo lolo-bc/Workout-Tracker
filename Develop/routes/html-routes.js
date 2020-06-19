@@ -5,6 +5,10 @@ module.exports = function(app) {
         res.send(index.html);
     });
 
+    // app.get("/exercise", (req, res) => {
+    //     res.send(excercise.html + id);
+    // });
+
     app.get("/exercise", (req, res) => {
         res.sendFile(path.join(__dirname, "../public/exercise.html"));
     });
