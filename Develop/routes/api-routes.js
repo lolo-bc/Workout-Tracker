@@ -1,4 +1,4 @@
-var db = require("../models/exercises.js");
+var db = require("../models");
 
  
 module.exports = function(app) {
@@ -8,32 +8,27 @@ module.exports = function(app) {
     });
 
     app.get("/api/workouts", function(req, res) {
-        db.Workout.find({}, (err, data) => {
-            if (err) {
-                console.log(err);
-            } else {
-                res.json(data);
-            }
-      });
+        db.Workout.find({}).then(function(data) {
+            res.json(data);
+        });
+    });
+
+    app.get("/api/workouts/range", function(req, res) {
+        db.Workout.find({}).then(function(data) {
+            res.json(data);
+        });
     });
 
     app.put("/api/workouts/:id", (req, res) => {
-        // console.log(req.body);
-        db.findByIdAndUpdate(req.body), (err, data) => {
-          console.log(req.body);
-          if (err) {
-            console.log(err);
-          } else {
-            res.json(data);
-          }
-        };
+        db.Workout.updateOne({ _id: req.params.id }, {exercises: [req.body]}).then(function(updatedData) {
+            res.json(updatedData);
+          });
       });
 
       app.post("/api/workouts", (req, res) => {
-        console.log("ooooooo" + req.body);
-        db.create(req.body)
+        db.Workout.create(req.body)
         .then(newdata => {
-            console.log(newdata + "PPPPPPPP");
+            console.log(newdata + "post newdata ");
             res.json(newdata);
           })
           .catch(({ message }) => {
