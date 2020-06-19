@@ -22,7 +22,7 @@ db.once('open', function() {
 });
 
 require("./routes/api-routes")(app);
-// require("./routes/htmlRoutes")(app); 
+require("./routes/html-routes")(app); 
 
 
 
